@@ -7,6 +7,7 @@
 //
 
 #import "Map.h"
+#import "Start.h"
 #import "DataClass.h"
 @import CoreLocation;
 
@@ -14,8 +15,8 @@
 #define         nLocalized      1
 
 //Localization
-float                   mlatitude;
-float                   mlongitude;
+double                   mlatitude;
+double                   mlongitude;
 static int              iLocalizeState = nLocalized;
 
 @interface Map ()
@@ -39,12 +40,17 @@ static int              iLocalizeState = nLocalized;
     [self.locationManager  requestWhenInUseAuthorization];
     [self.locationManager startUpdatingLocation];
     
+    NSLog(@"---**/mlatitude = %@",[DataClass getInstance].maLatitudes[[DataClass getInstance].dataIndex]);
+    NSLog(@"---**/mlongitude = %@",[DataClass getInstance].maLongitudes[[DataClass getInstance].dataIndex]);
     if ([DataClass getInstance].dataIndex > 0) {
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         
-        mlatitude = [numberFormatter numberFromString:(NSString *)[DataClass getInstance].maLatitudes].floatValue;
-        mlongitude = [numberFormatter numberFromString:(NSString *)[DataClass getInstance].maLongitudes].floatValue;
+        mlatitude = [numberFormatter numberFromString:(NSString *)[DataClass getInstance].maLatitudes[[DataClass getInstance].dataIndex]].doubleValue;
+        NSLog(@"---**/mlatitude = %f",mlatitude);
+        mlongitude = [numberFormatter numberFromString:(NSString *)[DataClass getInstance].maLongitudes[[DataClass getInstance].dataIndex]].doubleValue;
+        NSLog(@"---**/mlongitude = %f",mlongitude);
+
     } else {
         // UAG location by default
         mlatitude = 20.703575;
@@ -57,7 +63,21 @@ static int              iLocalizeState = nLocalized;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+/*
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"CM-DoblesPuntos:Start"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.locationManager stopUpdatingLocation];
+}
+*/
 /**********************************************************************************************/
 #pragma mark - Maps methods
 /**********************************************************************************************/
@@ -76,10 +96,11 @@ static int              iLocalizeState = nLocalized;
 }
 
 - (void) paintMap {
+    NSLog(@"---**/paintMap");
     [self.mapView removeFromSuperview];
-    camera                      = [GMSCameraPosition cameraWithLatitude:mlatitude longitude:mlongitude zoom:16];
+    camera                           = [GMSCameraPosition cameraWithLatitude:mlatitude longitude:mlongitude zoom:16];
     self.mapView                     = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    self.mapView.frame               = CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height-60);
+    self.mapView.frame               = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64);
     self.mapView.myLocationEnabled   = YES;
     
     [self.view addSubview:self.mapView];
@@ -145,4 +166,10 @@ static int              iLocalizeState = nLocalized;
  }
  */
 
+- (IBAction)backBtn:(id)sender {
+    [self.mapView removeFromSuperview];
+    Start *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"Start"];
+    
+    [self presentViewController:viewController animated:YES completion:nil];
+}
 @end

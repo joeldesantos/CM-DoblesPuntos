@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Google Maps
-    [GMSServices provideAPIKey:@"AIzaSyBHnUFSwuNC7C4ihOlt_9cc4H1ul8KwEmY"];
+    [GMSServices provideAPIKey:@"AIzaSyCXUpTcIQ4Cvs_kknZihZhW7d700cIi0QI"];
     
     // Google Analytics
     // Configure tracker from GoogleService-Info.plist.

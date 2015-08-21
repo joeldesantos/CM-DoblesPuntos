@@ -17,6 +17,8 @@
 @property (strong, nonatomic)   CLLocation          *location;
 
 @property (strong, nonatomic) IBOutlet UINavigationItem *titleLbl;
+- (IBAction)backBtn:(id)sender;
+
 
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 

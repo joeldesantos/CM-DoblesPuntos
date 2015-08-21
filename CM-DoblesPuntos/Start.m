@@ -73,6 +73,7 @@
 {
     DataClass *data=[DataClass getInstance];
     data.dataIndex = (int)indexPath.row;
+    NSLog(@"data.dataIndex = %d",data.dataIndex);
     Map *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"Map"];
     
     [self presentViewController:viewController animated:YES completion:nil];
