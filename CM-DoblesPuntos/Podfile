@@ -1,0 +1,5 @@
+xcodeproj '/Users/Aleyr/Documents/08 Dobles Puntos/CM-DoblesPuntos/CM-DoblesPuntos'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.1'
+pod 'GoogleMaps'
+pod 'Google/Analytics', '~> 1.0.0'

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CityCell.h
 //  CM-DoblesPuntos
 //
 //  Created by Aleyr on 8/20/15.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface CityCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *cityLbl;
 
 @end
-
